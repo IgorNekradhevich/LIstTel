@@ -20,6 +20,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class MainActivity extends AppCompatActivity {
@@ -41,10 +42,22 @@ public class MainActivity extends AppCompatActivity {
 
     public void onClick2(View v )
     {
-        String test = connect.getSite();
-        text.setText(test);
+        try {
+            String test = connect.getSite();
+            test="";
+            text.setText(" ");
+            ArrayList<Tel> Tellist = connect.getTelList();
+            Tel tel1=Tellist.get(0);
+            text.setText(tel1.name);
+        }
+        catch( Exception e) {
+            Toast.makeText(this,e.getMessage(),Toast.LENGTH_LONG ).show();
+        }
     }
     public void onClick(View v)
     {
+        AddToBase test = new AddToBase();
+        Tel tel = new Tel("3","TEST","3242","2000-11-11");
+        test.addTel(tel,this);
     }
 }

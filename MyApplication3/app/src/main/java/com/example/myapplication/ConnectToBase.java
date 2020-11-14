@@ -13,7 +13,7 @@ import java.util.Scanner;
 
 public class ConnectToBase {
 
-    String url ="http://itstepteru.temp.swtest.ru/";
+    String url ="https://bousy-patch.000webhostapp.com/";
     URL site = null;
     HttpURLConnection conn;
     String HTMLpage="";
@@ -39,10 +39,14 @@ public class ConnectToBase {
         GsonBuilder builder = new GsonBuilder();
         Gson gson= builder.create();
         int index = HTMLpage.indexOf("{\"id");
-        while (index!=-1)
-        {
-            String json = HTMLpage.substring(index,HTMLpage.indexOf("}"+1) );
+        while (index>0)
+       {
+            int index2 = HTMLpage.indexOf("}")+1;
+            String json = HTMLpage.substring(index, index2);
+            HTMLpage =HTMLpage.substring(index2);
+            System.out.println(json);
             ListTel.add(gson.fromJson(json,Tel.class));
+            index = HTMLpage.indexOf("{\"id");
         }
         return ListTel;
     }
@@ -77,7 +81,6 @@ public class ConnectToBase {
     public String getSite()
     {
            return  HTMLpage;
-        //return  "Test";
     }
 
     public void Disconnect ()
